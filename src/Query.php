@@ -81,6 +81,9 @@ class Query extends Collection
                 if ($result) {
                     $result .= '&';
                 }
+                if (is_bool($value) && !$value) {
+                    $value = 0;
+                }
                 $result .= $encoder($key);
                 if ($value !== null) {
                     $result .= '=' . $encoder($value);

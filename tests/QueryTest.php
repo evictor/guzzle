@@ -75,7 +75,7 @@ class QueryTest extends \PHPUnit_Framework_TestCase
             'bar' => null,
             'boo' => false
         ));
-        $this->assertEquals('foo=0&baz=0&bar&boo=', (string) $query);
+        $this->assertEquals('foo=0&baz=0&bar&boo=0', (string) $query);
     }
 
     private $encodeData = [
@@ -167,5 +167,11 @@ class QueryTest extends \PHPUnit_Framework_TestCase
     {
         $q = Query::fromString('foo=bar%2Fbaz&bam=boo boo!', false);
         $this->assertEquals('foo=bar%2Fbaz&bam=boo boo!', (string) $q);
+    }
+
+    public function testQueryStringConvertsFalseToZero()
+    {
+        $q = new Query(['foo' => false]);
+        $this->assertEquals('foo=0', (string) $q);
     }
 }
